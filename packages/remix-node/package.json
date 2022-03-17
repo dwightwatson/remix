@@ -12,7 +12,7 @@
     "url": "https://github.com/remix-run/remix/issues"
   },
   "dependencies": {
-    "@remix-run/server-runtime": "1.2.3",
+    "@remix-run/server-runtime": "file:../../build/node_modules/@remix-run/server-runtime",
     "@types/busboy": "^0.3.1",
     "@types/node-fetch": "^2.5.12",
     "@web-std/file": "^3.0.0",

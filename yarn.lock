@@ -1757,6 +1757,16 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@remix-run/server-runtime@file:build/node_modules/@remix-run/server-runtime":
+  version "1.2.3"
+  dependencies:
+    "@types/cookie" "^0.4.0"
+    cookie "^0.4.1"
+    jsesc "^3.0.1"
+    react-router-dom "^6.2.2"
+    set-cookie-parser "^2.4.8"
+    source-map "^0.7.3"
+
 "@rollup/plugin-babel@^5.2.2":
   version "5.3.0"
   resolved "https://registry.npmjs.org/@rollup/plugin-babel/-/plugin-babel-5.3.0.tgz"

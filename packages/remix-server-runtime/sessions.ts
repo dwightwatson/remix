@@ -65,6 +65,8 @@ function flash(name: string): string {
   return `__flash_${name}__`;
 }
 
+export type CreateSessionFunction = (initialData?: SessionData, id?: string) => Session
+
 /**
  * Creates a new Session object.
  *
@@ -73,7 +75,7 @@ function flash(name: string): string {
  *
  * @see https://remix.run/api/remix#createsession
  */
-export function createSession(initialData: SessionData = {}, id = ""): Session {
+export const createSession: CreateSessionFunction = (initialData = {}, id = "") => {
   let map = new Map<string, any>(Object.entries(initialData));
 
   return {
@@ -110,12 +112,14 @@ export function createSession(initialData: SessionData = {}, id = ""): Session {
   };
 }
 
+export type IsSessionFunction = (object: any) => object is Session
+
 /**
  * Returns true if an object is a Remix session.
  *
  * @see https://remix.run/api/remix#issession
  */
-export function isSession(object: any): object is Session {
+export const isSession: IsSessionFunction = (object): object is Session => {
   return (
     object != null &&
     typeof object.id === "string" &&
@@ -202,6 +206,8 @@ export interface SessionIdStorageStrategy {
   deleteData: (id: string) => Promise<void>;
 }
 
+export type CreateSessionStorageFunction = (strategy: SessionIdStorageStrategy) => SessionStorage
+
 /**
  * Creates a SessionStorage object using a SessionIdStorageStrategy.
  *
@@ -210,13 +216,13 @@ export interface SessionIdStorageStrategy {
  *
  * @see https://remix.run/api/remix#createsessionstorage
  */
-export function createSessionStorage({
+export const createSessionStorage: CreateSessionStorageFunction = ({
   cookie: cookieArg,
   createData,
   readData,
   updateData,
   deleteData,
-}: SessionIdStorageStrategy): SessionStorage {
+}) =>{
   let cookie = isCookie(cookieArg)
     ? cookieArg
     : createCookie(cookieArg?.name || "__session", cookieArg);

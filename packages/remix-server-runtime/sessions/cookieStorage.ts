@@ -10,6 +10,8 @@ interface CookieSessionStorageOptions {
   cookie?: SessionIdStorageStrategy["cookie"];
 }
 
+export type CreateCookieSessionStorageFunction = (options?: CookieSessionStorageOptions) => SessionStorage
+
 /**
  * Creates and returns a SessionStorage object that stores all session data
  * directly in the session cookie itself.
@@ -21,9 +23,9 @@ interface CookieSessionStorageOptions {
  *
  * @see https://remix.run/api/remix#createcookiesessionstorage
  */
-export function createCookieSessionStorage({
-  cookie: cookieArg,
-}: CookieSessionStorageOptions = {}): SessionStorage {
+export const createCookieSessionStorage: CreateCookieSessionStorageFunction = ({
+  cookie: cookieArg
+} = {}) => {
   let cookie = isCookie(cookieArg)
     ? cookieArg
     : createCookie(cookieArg?.name || "__session", cookieArg);

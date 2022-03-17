@@ -13,6 +13,8 @@ interface MemorySessionStorageOptions {
   cookie?: SessionIdStorageStrategy["cookie"];
 }
 
+export type CreateMemorySessionStorageFunction = (options?: MemorySessionStorageOptions) => SessionStorage
+
 /**
  * Creates and returns a simple in-memory SessionStorage object, mostly useful
  * for testing and as a reference implementation.
@@ -22,9 +24,9 @@ interface MemorySessionStorageOptions {
  *
  * @see https://remix.run/api/remix#creatememorysessionstorage
  */
-export function createMemorySessionStorage({
+export const createMemorySessionStorage: CreateMemorySessionStorageFunction = ({
   cookie,
-}: MemorySessionStorageOptions = {}): SessionStorage {
+} = {}) => {
   let uniqueId = 0;
   let map = new Map<string, { data: SessionData; expires?: Date }>();
 

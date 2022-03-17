@@ -24,14 +24,16 @@ export interface RequestHandler {
   (request: Request, loadContext?: AppLoadContext): Promise<Response>;
 }
 
+export type CreateRequestHandler = (build: ServerBuild, platform: ServerPlatform, mode?: string) => RequestHandler
+
 /**
  * Creates a function that serves HTTP requests.
  */
-export function createRequestHandler(
-  build: ServerBuild,
-  platform: ServerPlatform,
-  mode?: string
-): RequestHandler {
+export const createRequestHandler: CreateRequestHandler = (
+  build,
+  platform,
+  mode,
+) => {
   let routes = createRoutes(build.routes);
   let serverMode = isServerMode(mode) ? mode : ServerMode.Production;
 
